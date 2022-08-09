@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ARG OS_IMAGE=
+FROM pytorch/manylinux-cuda:111
 FROM ${OS_IMAGE}
 
 # Install Yum Dependencies

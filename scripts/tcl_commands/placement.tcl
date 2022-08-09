@@ -12,6 +12,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+proc global_placement_dream {args} {
+    increment_index
+    TIMER::timer_start
+    set log [index_file $::env(placement_logs)/global.log]
+    puts_info "Running DREAM Global Placement (log: [relpath . $log])..."
+    
+    set ::env(SAVE_DEF) [index_file $::env(placement_tmpfiles)/global.def]
+
+    # random initial placement
+    if { $::env(PL_RANDOM_INITIAL_PLACEMENT) } {
+        random_global_placement
+        set ::env(PL_SKIP_INITIAL_PLACEMENT) 1
+    }
+
+    run_openroad_script $::env(SCRIPTS_DIR)/openroad/gpld.tcl -indexed_log $log
+
+    # sometimes replace fails with a ZERO exit code; the following is a workaround
+    # until the cause is found and fixed
+    if { ! [file exists $::env(SAVE_DEF)] } {
+        puts_err "DREAM Global placement has failed to produce a DEF file."
+        flow_fail
+    }
+
+    check_replace_divergence
+
+    TIMER::timer_stop
+    exec echo "[TIMER::get_runtime]" | python3 $::env(SCRIPTS_DIR)/write_runtime.py "global placement - openroad"
+    set_def $::env(SAVE_DEF)
+}
+
 proc global_placement_or {args} {
     increment_index
     TIMER::timer_start
@@ -171,6 +201,8 @@ proc run_placement {args} {
     if { $::env(PL_RANDOM_GLB_PLACEMENT) } {
         # useful for very tiny designs
         random_global_placement
+    } elseif { $::env(PL_DREAMPLACE_GLB_PLACEMENT) } {
+        global_placement_dream
     } else {
         global_placement_or
     }

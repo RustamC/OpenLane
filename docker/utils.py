@@ -24,6 +24,9 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
 SUPPORTED_ARCHITECTURES = {"amd64", "arm64v8", "ppc64le"}
 CI_ARCHITECTURES = {"amd64", "arm64v8"}
 SUPPORTED_OPERATING_SYSTEMS = {"centos-7"}

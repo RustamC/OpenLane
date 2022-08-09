@@ -25,6 +25,10 @@ if { ! [info exists ::env(OPENROAD_BIN) ] } {
 lappend ::auto_path "$::env(OPENLANE_ROOT)/scripts/"
 package require openlane; # provides the utils as well
 
+if { ! [info exists ::env(DREAMPLACE_BIN) ] } {
+    set ::env(DREAMPLACE_BIN) "/build/dreamplace/Placer.py"
+}
+
 proc run_placement_step {args} {
     if { ! [ info exists ::env(PLACEMENT_CURRENT_DEF) ] } {
         set ::env(PLACEMENT_CURRENT_DEF) $::env(CURRENT_DEF)
