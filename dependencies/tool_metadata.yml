@@ -74,11 +74,11 @@
   pdk: true
 - name: dreamplace
   repo: https://github.com/limbo018/DREAMPlace
-  commit: 6cf549fc6e4905267f336f9689ab72ccb775a6e0
+  commit: f74000d3a9291a5e084b901d73686a83cb444d36
   build: |
     rm -rf build/
     mkdir build
     cd build
-    cmake .. -DCMAKE_INSTALL_PREFIX=$PREFIX -DPYTHON_EXECUTABLE=$(which python)
+    cmake .. -DCMAKE_INSTALL_PREFIX=$PREFIX -DPYTHON_EXECUTABLE=$(which python3)
     make
     make install
