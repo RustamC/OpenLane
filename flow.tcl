@@ -48,7 +48,9 @@ proc run_cts_step {args} {
 
     run_cts
     run_resizer_timing
-    remove_buffers_from_nets
+    if { $::env(RSZ_USE_OLD_REMOVER) == 1} {
+        remove_buffers_from_nets
+    }
 }
 
 proc run_routing_step {args} {
@@ -158,7 +160,7 @@ proc run_klayout_step {args} {
 proc run_post_run_hooks {} {
     if { [file exists $::env(DESIGN_DIR)/hooks/post_run.py]} {
         puts_info "Running post run hook"
-        set result [exec $::env(OPENROAD_BIN) -python $::env(DESIGN_DIR)/hooks/post_run.py]
+        set result [exec $::env(OPENROAD_BIN) -exit -python $::env(DESIGN_DIR)/hooks/post_run.py]
         puts_info "$result"
     } else {
         puts_info "hooks/post_run.py not found, skipping"
@@ -320,13 +322,13 @@ proc run_magic_drc_batch {args} {
             -noconsole \
             -dnull \
             -rcfile $magicrc \
-            $::env(OPENLANE_ROOT)/scripts/magic/drc_batch.tcl \
+            $::env(OPENLANE_ROOT)/scripts/magic/gds/drc_batch.tcl \
             </dev/null |& tee /dev/tty
     } else {
         exec magic \
             -noconsole \
             -dnull \
-            $::env(OPENLANE_ROOT)/scripts/magic/drc_batch.tcl \
+            $::env(OPENLANE_ROOT)/scripts/magic/gds/drc_batch.tcl \
             </dev/null |& tee /dev/tty
     }
 }
