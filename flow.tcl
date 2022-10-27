@@ -136,6 +136,12 @@ proc run_antenna_check_step {{ antenna_check_enabled 1 }} {
     }
 }
 
+proc run_erc_step {args} {
+    if { $::env(RUN_CVC) } {
+        run_erc
+    }
+}
+
 proc run_eco_step {args} {
     if { $::env(ECO_ENABLE) == 1 } {
         run_eco_flow
@@ -209,7 +215,7 @@ proc run_non_interactive_mode {args} {
         "lvs" "run_lvs_step $LVS_ENABLED " \
         "drc" "run_drc_step $DRC_ENABLED " \
         "antenna_check" "run_antenna_check_step $ANTENNACHECK_ENABLED " \
-        "cvc" "run_lef_cvc"
+        "cvc_rv" "run_erc_step"
     ]
 
     if { [info exists arg_values(-from) ]} {
@@ -222,7 +228,7 @@ proc run_non_interactive_mode {args} {
     }
 
     set_if_unset arg_values(-from) $::env(CURRENT_STEP)
-    set_if_unset arg_values(-to) "cvc"
+    set_if_unset arg_values(-to) "cvc_rv"
 
     set exe 0;
     dict for {step_name step_exe} $steps {
@@ -390,9 +396,11 @@ if {[catch {exec cat $::env(OPENLANE_ROOT)/install/installed_version} ::env(OPEN
     }
 }
 
-if {![catch {exec git --git-dir $::env(OPENLANE_ROOT)/.git rev-parse HEAD} ::env(OPENLANE_MOUNTED_SCRIPTS_VERSION)]} {
-    if { $::env(OPENLANE_VERSION) == $::env(OPENLANE_MOUNTED_SCRIPTS_VERSION)} {
-        unset ::env(OPENLANE_MOUNTED_SCRIPTS_VERSION)
+if { ! [info exists ::env(OPENLANE_LOCAL_INSTALL)] || ! $::env(OPENLANE_LOCAL_INSTALL)} {
+    if {![catch {exec git --git-dir $::env(OPENLANE_ROOT)/.git rev-parse HEAD} ::env(OPENLANE_MOUNTED_SCRIPTS_VERSION)]} {
+        if { $::env(OPENLANE_VERSION) == $::env(OPENLANE_MOUNTED_SCRIPTS_VERSION)} {
+            unset ::env(OPENLANE_MOUNTED_SCRIPTS_VERSION)
+        }
     }
 }
 
