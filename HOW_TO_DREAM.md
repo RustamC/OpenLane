@@ -20,6 +20,8 @@ cd $HOME
 git clone https://github.com/RustamC/OpenLane.git
 cd OpenLane
 git switch dreamplace
+git branch working_dream 71d6c6e
+git checkout working_dream
 make openlane BUILD_IF_CANT_PULL=1
 make pdk
 make test
