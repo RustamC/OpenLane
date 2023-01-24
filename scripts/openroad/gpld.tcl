@@ -31,7 +31,8 @@ set json_gen_cmd "python3 $::env(SCRIPTS_DIR)/config/dreamplace_conf.py \
     $::env(MERGED_LEF) \
     $::env(SAVE_DEF) \
     $::env(placement_tmpfiles) \
-	$::env(PL_TARGET_DENSITY)"
+	$::env(PL_TARGET_DENSITY) \
+	1 0 0"
 
 if { [catch {exec {*}$json_gen_cmd} errmsg] } {
     puts stderr $errmsg

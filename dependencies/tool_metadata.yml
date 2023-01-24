@@ -73,8 +73,8 @@
   in_install: false
   pdk: true
 - name: dreamplace
-  repo: https://github.com/limbo018/DREAMPlace
-  commit: f74000d3a9291a5e084b901d73686a83cb444d36
+  repo: https://github.com/limbo018/DREAMPlace/tree/develop
+  commit: 58e47729c7a341f3c1de1edca9918b06c0aed500
   build: |
     rm -rf build/
     mkdir build

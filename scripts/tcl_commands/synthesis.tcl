@@ -20,6 +20,24 @@ proc convert_pg_pins {lib_in lib_out} {
     try_catch sed -E {s/^([[:space:]]+)pg_pin(.*)/\1pin\2\n\1    direction : "inout";/g} $lib_in > $lib_out
 }
 
+proc run_partitioning {args} {
+    increment_index
+    TIMER::timer_start
+    set log [index_file $::env(synthesis_logs)/partition.log]
+    puts_info "Running partitioning (log: [relpath . $log])..."
+    
+    run_openroad_script $::env(SCRIPTS_DIR)/openroad/partition.tcl -indexed_log $log
+
+    # sometimes replace fails with a ZERO exit code; the following is a workaround
+    # until the cause is found and fixed
+    if { ! [file exists $::env(synthesis_results)/$::env(DESIGN_NAME).part.v] } {
+        puts_err "Partitioning has failed to produce a Verilog file."
+    }
+
+    TIMER::timer_stop
+    exec echo "[TIMER::get_runtime]" | python3 $::env(SCRIPTS_DIR)/write_runtime.py "partition - openroad"
+}
+
 proc run_yosys {args} {
     set ::env(CURRENT_STAGE) synthesis
 
@@ -167,6 +185,9 @@ proc run_synthesis {args} {
         run_yosys -output $::env(synthesis_tmpfiles)/pg_define.v -no_set_netlist
     }
 
+    if { $::env(ENABLE_PARTITIONING) == 1 } {
+        run_partitioning
+    }
 }
 
 proc verilog_elaborate {args} {

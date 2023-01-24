@@ -22,20 +22,20 @@ lef_in_file = sys.argv[3]
 def_out_file = sys.argv[4]
 result_dir = sys.argv[5]
 target_density = float(sys.argv[6])
+global_flag = int(sys.argv[7])
+legalize_flag = int(sys.argv[8])
+detailed_flag = int(sys.argv[9])
 
 config_file_writer = open(config_file, "w")
 
 json_dict = {
     "def_input" : def_in_file, 
     "lef_input" : lef_in_file,
-    "def_output" : def_out_file,
     "gpu" : 0,
-    "num_bins_x" : 512,
-    "num_bins_y" : 512,
+    "num_bins_x" : 0,
+    "num_bins_y" : 0,
     "global_place_stages" : [
         {
-            "num_bins_x" : 512, 
-            "num_bins_y" : 512, 
             "iteration" : 1000, 
             "learning_rate" : 0.01, 
             "wirelength" : "weighted_average", 
@@ -43,15 +43,15 @@ json_dict = {
         }
     ],
     "target_density" : target_density,
-    "density_weight" : 2.0,
+    "density_weight" : 8e-5,
     "gamma" : 4,
     "random_seed" : 1000,
     "ignore_net_degree" : 100,
     "enable_fillers" : 1,
     "gp_noise_ratio" : 0.025,
-    "global_place_flag" : 1,
-    "legalize_flag" : 0,
-    "detailed_place_flag" : 0,
+    "global_place_flag" : global_flag,
+    "legalize_flag" : legalize_flag,
+    "detailed_place_flag" : detailed_flag,
     "detailed_place_engine" : "",
     "detailed_place_command" : "",
     "stop_overflow" : 0.1,
@@ -62,7 +62,8 @@ json_dict = {
     "sort_nets_by_degree" : 0,
     "num_threads" : 4,
     "deterministic_flag" : 0,
-    "routability_opt_flag" : 0
+    "routability_opt_flag" : 0,
+    "RePlAce_UPPER_PCOF" : 1.05
 }
 
 json.dump(json_dict, config_file_writer, indent=4)

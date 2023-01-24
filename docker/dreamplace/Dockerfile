@@ -55,12 +55,16 @@ RUN pip3 install \
         shapely>=1.7.0 \
         torch>=1.6
 
-RUN git clone --recursive https://github.com/limbo018/DREAMPlace.git &&\
+RUN git clone https://github.com/limbo018/DREAMPlace.git &&\
     cd DREAMPlace &&\
+    git fetch &&\
+    git checkout -b develop origin/develop &&\
+    git submodule init &&\
+    git submodule update &&\
     mkdir build &&\
     cd build &&\
     cmake .. -DCMAKE_INSTALL_PREFIX=/build -DPYTHON_EXECUTABLE=$(which python3) -DBOOST_INCLUDEDIR=/usr/include/boost169/ -DBOOST_LIBRARYDIR=/usr/lib64/boost169/ -DBISON_EXECUTABLE=/opt/bison/bin/bison &&\
-    make -j$(nproc) &&\
+    make &&\
     make install
 
 WORKDIR /dreamplace
