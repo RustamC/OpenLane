@@ -1,0 +1,12 @@
+{
+    "DESIGN_NAME": "riscv_top",
+    "VERILOG_FILES": "dir::src/core/riscv/*.v",
+    "CLOCK_PORT": "clk_i",
+    "CLOCK_NET": "clk_i",
+    "CLOCK_PERIOD": 100.0,
+    "DESIGN_IS_CORE": true,
+    "FP_CORE_UTIL": 20,
+    "DIE_AREA": "0 0 200 200",
+    "SYNTH_MAX_FANOUT": 130,
+    "PL_DREAMPLACE_GLB_PLACEMENT": 0
+}
