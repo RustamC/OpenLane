@@ -1,0 +1,30 @@
+{
+    "PDK": "sky130A",
+    "STD_CELL_LIBRARY": "sky130_fd_sc_hd",
+    "DESIGN_NAME": "test_macro",
+    "DESIGN_IS_CORE": 1,
+    "VERILOG_FILES": "dir::src/*.v",
+    "EXTRA_LEFS": "dir::macros/lef/*.lef",
+    "EXTRA_GDS_FILES": "dir::macros/gds/*.gds",
+    
+    "FP_CORE_UTIL": "25",
+    "PL_BASIC_PLACEMENT": 1,
+
+    "GLB_RESIZER_TIMING_OPTIMIZATIONS": false,
+
+    "PL_MACRO_CHANNEL": "10 10",
+    "PL_MACRO_HALO": "0 0",
+    "SYNTH_MAX_FANOUT": 130,
+    "BASE_SDC_FILE": "dir::base.sdc",
+    "CLOCK_PORT": "clk_1",
+    "CLOCK_PERIOD": 100,
+    "DIODE_INSERTION_STRATEGY": 0,
+
+    "FP_PDN_CORE_RING": 1,
+    "FP_PDN_VOFFSET": 0,
+    "FP_PDN_VPITCH": 30,
+    "FP_PDN_CHECK_NODES": false,
+
+    "RUN_LVS": false,
+    "RUN_MAGIC_DRC": false
+}
