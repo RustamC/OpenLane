@@ -26,5 +26,6 @@
     "FP_PDN_CHECK_NODES": false,
 
     "RUN_LVS": false,
-    "RUN_MAGIC_DRC": false
+    "RUN_MAGIC_DRC": false,
+    "RUN_IRDROP_REPORT": false
 }
