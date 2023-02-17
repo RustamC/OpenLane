@@ -57,8 +57,7 @@ RUN pip3 install \
 
 RUN git clone https://github.com/limbo018/DREAMPlace.git &&\
     cd DREAMPlace &&\
-    git fetch &&\
-    git checkout -b develop origin/develop &&\
+    git checkout -b dream 58e47729c7a341f3c1de1edca9918b06c0aed500 && \
     git submodule init &&\
     git submodule update &&\
     mkdir build &&\
