@@ -1,0 +1,31 @@
+{
+    "DESIGN_NAME": "pyfive_top",
+    "VERILOG_FILES": ["dir::src/*.v", "dir::no2usb/rtl/*.v"],
+    "VERILOG_FILES_BLACKBOX": "dir::macros/bb/*.v",
+    "EXTRA_LEFS": "dir::macros/lef/*.lef",
+    "EXTRA_GDS_FILES": "dir::macros/gds/*.gds",
+    "SYNTH_READ_BLACKBOX_LIB": 1,
+
+    "DESIGN_IS_CORE": 1,
+    "DIODE_INSERTION_STRATEGY": 0,
+    "CLOCK_PORT": "wb_clk_i",
+    "CLOCK_NET": "wb_clk_i",
+    "FP_CORE_UTIL": 35,
+    "pdk::sky130*": {
+        "scl::sky130_fd_sc_hd": {
+            "SYNTH_MAX_FANOUT": 8,
+            "PL_TARGET_DENSITY": 0.40,
+            "PL_RESIZER_HOLD_SLACK_MARGIN": 0.25,
+            "CLOCK_PERIOD": 25
+        }
+    },
+    
+    "MAGIC_DRC_USE_GDS": 0,
+    "MAGIC_ZEROIZE_ORIGIN": 0,
+
+    "PL_MACRO_CHANNEL": "40 40",
+    "PL_MACRO_HALO": "10 10",
+    "RUN_LVS": false,
+    "RUN_MAGIC_DRC": false,
+    "RUN_IRDROP_REPORT": false
+}
