@@ -27,6 +27,7 @@ ARG DREAMPLACE_COMMIT
 
 WORKDIR /dreamplace
 
+RUN yum -y install epel-release
 RUN yum -y install wget flex boost169-devel cairo-devel bison libjpeg-devel python3-devel
 
 ADD https://cmake.org/files/v3.21/cmake-3.21.0-linux-x86_64.sh /cmake-3.21.0-linux-x86_64.sh
